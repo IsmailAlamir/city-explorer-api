@@ -30,7 +30,7 @@ server.get('/test', (req, res) => {
     res.send('Hi from the test route');
 })
 
-// http://localhost:3000/weather?let=<let>&lon=<lon>
+// http://localhost:3000/weather?let=let&lon=lon
 server.get('/weather', (req, res) => {
     const result = weather.find((item) => {
         if (item.lat == req.query.lat && item.lon == req.query.lon) {
