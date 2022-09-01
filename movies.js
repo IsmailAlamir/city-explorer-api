@@ -10,7 +10,7 @@ async function movieshandler(req,res){
         res.status(200).send(memory[searchQuery]);
 
     }else{
-        console.log('no data')
+
     const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`
     axios 
 .get(URL)
