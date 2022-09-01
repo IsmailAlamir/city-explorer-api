@@ -1,16 +1,19 @@
 'use strict'
 const axios = require('axios');
-
-
+let memory={};
 
 async function movieshandler(req,res){
+    if (memory[searchQuery]){
+    res.status(200).send(memory[searchQuery])
+
+    }else{
     const searchQuery = req.query.searchQuery;
     const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`
     axios 
 .get(URL)
 .then(result=>{
     let moviesArray=result.data.results.map(item=>{
-
+        memory[searchQuery]=moviesArray;
         return new Movie(item);
 
     })
@@ -24,7 +27,7 @@ res.status(404).send(error);
 })
 
 }
-
+}
 
 
 class Movie {
