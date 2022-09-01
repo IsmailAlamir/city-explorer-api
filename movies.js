@@ -1,25 +1,27 @@
 'use strict'
 const axios = require('axios');
-let memory={};
+let  memory ={};
 
 async function movieshandler(req,res){
     const searchQuery = req.query.searchQuery;
-
     if (memory[searchQuery]){
-    res.status(200).send(memory[searchQuery])
+        console.log('data')
+
+        res.status(200).send(memory[searchQuery]);
 
     }else{
+        console.log('no data')
     const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`
     axios 
 .get(URL)
 .then(result=>{
     let moviesArray=result.data.results.map(item=>{
-        memory[searchQuery]=moviesArray;
+
         return new Movie(item);
 
     })
+    memory[searchQuery]=moviesArray;
     res.status(200).send(moviesArray);
-
 
 })
 .catch(error => {
@@ -27,8 +29,10 @@ res.status(404).send(error);
 
 })
 
+    }
+
 }
-}
+
 
 
 class Movie {
