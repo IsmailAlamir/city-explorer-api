@@ -3,11 +3,12 @@ const axios = require('axios');
 let memory={};
 
 async function movieshandler(req,res){
+    const searchQuery = req.query.searchQuery;
+
     if (memory[searchQuery]){
     res.status(200).send(memory[searchQuery])
 
     }else{
-    const searchQuery = req.query.searchQuery;
     const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`
     axios 
 .get(URL)
